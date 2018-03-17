@@ -6,33 +6,33 @@ public class Cliente
 {
     public final String nome;
     public final String cpf;
-    public final ContaCorrente contaCorrente;
+    public final Conta conta;
 
-    public Cliente(String nome, String cpf, ContaCorrente contaCorrente)
+    public Cliente(String nome, String cpf, TipoConta tipoConta)
+    {
+        this(nome, cpf, tipoConta == TipoConta.Corrente ? new ContaCorrente() : new ContaPoupanca());
+    }
+
+    private Cliente(String nome, String cpf, Conta conta)
     {
         this.nome = nome;
         this.cpf = cpf;
-        this.contaCorrente = contaCorrente;
-    }
-
-    public Cliente(String nome, String cpf)
-    {
-        this(nome, cpf, new ContaCorrente());
+        this.conta = conta;
     }
 
     public Cliente withNome(String nome)
     {
-        return new Cliente(nome, cpf, contaCorrente);
+        return new Cliente(nome, cpf, conta);
     }
 
     public Cliente withCpf(String cpf)
     {
-        return new Cliente(nome, cpf, contaCorrente);
+        return new Cliente(nome, cpf, conta);
     }
 
-    public Cliente withConta(ContaCorrente contaCorrente)
+    public Cliente withConta(Conta conta)
     {
-        return new Cliente(nome, cpf, contaCorrente);
+        return new Cliente(nome, cpf, conta);
     }
 
     @Override
@@ -42,11 +42,11 @@ public class Cliente
         Cliente cliente = (Cliente) o;
         return Objects.equals(nome, cliente.nome) &&
                 Objects.equals(cpf, cliente.cpf) &&
-                Objects.equals(contaCorrente, cliente.contaCorrente);
+                Objects.equals(conta, cliente.conta);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nome, cpf, contaCorrente);
+        return Objects.hash(nome, cpf, conta);
     }
 }
