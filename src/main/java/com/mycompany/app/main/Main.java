@@ -1,25 +1,15 @@
 package com.mycompany.app.main;
 
-import com.mycompany.app.banco.ContaCorrente;
-
-import java.util.Optional;
+        import com.mycompany.app.banco.Cliente;
+        import com.mycompany.app.banco.Relatorios;
+        import com.mycompany.app.banco.TipoConta;
 
 public class Main
 {
     public static void main(String... args)
     {
-        ContaCorrente c = new ContaCorrente().withNumeroConta(1).withSaldoAtual(300).saca(10);
-    }
+        Cliente cli = new Cliente("Kiber", "69696969696", TipoConta.Poupanca);
 
-    public static Optional<Double> div(double a, double b)
-    {
-        if (b == 0)
-        {
-            return Optional.empty();
-        }
-        else
-        {
-            return Optional.of(a/b);
-        }
+        Relatorios.relatorio().informacoesCliente(cli);
     }
 }
