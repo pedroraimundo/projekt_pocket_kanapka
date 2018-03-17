@@ -9,32 +9,27 @@ public class ContaPoupanca implements Conta {
     public final double limite;
     public final int numeroConta;
 
-    public ContaPoupanca(double saldoAtual, double limite, int numeroConta)
-    {
+    public ContaPoupanca(double saldoAtual, double limite, int numeroConta) {
         this.saldoAtual = saldoAtual;
         this.limite = limite;
         this.numeroConta = numeroConta;
     }
 
-    public ContaPoupanca()
-    {
+    public ContaPoupanca() {
         saldoAtual = 0.0;
         limite = 50;
         numeroConta = 0;
     }
 
-    public ContaPoupanca withSaldoAtual(double saldoAtual)
-    {
+    public ContaPoupanca withSaldoAtual(double saldoAtual) {
         return new ContaPoupanca(saldoAtual, limite, numeroConta);
     }
 
-    public ContaPoupanca withLimite(double limite)
-    {
+    public ContaPoupanca withLimite(double limite) {
         return new ContaPoupanca(saldoAtual, limite, numeroConta);
     }
 
-    public ContaPoupanca withNumeroConta(int numeroConta)
-    {
+    public ContaPoupanca withNumeroConta(int numeroConta) {
         return new ContaPoupanca(saldoAtual, limite, numeroConta);
     }
 
@@ -49,19 +44,16 @@ public class ContaPoupanca implements Conta {
 
         double newSaldoAtual = this.saldoAtual * 0.05;
 
-        if ((valor < 0) || (valor == 0))
-        {
+        if ((valor < 0) || (valor == 0)) {
             return this;
-        }
-        else
-        {
+        } else {
             return new ContaPoupanca(newSaldoAtual + valor, limite, numeroConta);
         }
     }
 
     @Override
     public Conta bonificacao() {
-        return new ContaPoupanca(saldoAtual+(saldoAtual * JUROS), limite, numeroConta);
+        return new ContaPoupanca(saldoAtual + (saldoAtual * JUROS), limite, numeroConta);
     }
 
     @Override

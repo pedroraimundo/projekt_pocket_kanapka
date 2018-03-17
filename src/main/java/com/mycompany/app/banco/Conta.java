@@ -10,4 +10,5 @@ public interface Conta {
 
     TipoConta tipoConta();
 
+    String toString();
 }
