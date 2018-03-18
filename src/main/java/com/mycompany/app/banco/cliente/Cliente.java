@@ -1,4 +1,9 @@
-package com.mycompany.app.banco;
+package com.mycompany.app.banco.cliente;
+
+import com.mycompany.app.banco.conta.Conta;
+import com.mycompany.app.banco.conta.ContaCorrente;
+import com.mycompany.app.banco.conta.ContaPoupanca;
+import com.mycompany.app.banco.conta.TipoConta;
 
 import java.util.Objects;
 

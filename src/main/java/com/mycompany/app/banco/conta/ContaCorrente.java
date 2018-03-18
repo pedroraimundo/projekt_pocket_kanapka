@@ -1,7 +1,9 @@
-package com.mycompany.app.banco;
+package com.mycompany.app.banco.conta;
+
+import com.mycompany.app.banco.conta.transacao.TipoTransacao;
+import com.mycompany.app.banco.conta.transacao.Transacao;
 
 import java.util.Arrays;
-import java.util.Date;
 import java.util.Objects;
 
 public class ContaCorrente implements Conta {

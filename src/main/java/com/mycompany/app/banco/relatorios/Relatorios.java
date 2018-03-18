@@ -1,4 +1,11 @@
-package com.mycompany.app.banco;
+package com.mycompany.app.banco.relatorios;
+
+import com.mycompany.app.banco.cliente.Cliente;
+import com.mycompany.app.banco.conta.Conta;
+import com.mycompany.app.banco.conta.ContaCorrente;
+import com.mycompany.app.banco.conta.ContaPoupanca;
+import com.mycompany.app.banco.conta.TipoConta;
+import com.mycompany.app.banco.conta.transacao.Transacao;
 
 public class Relatorios
 {

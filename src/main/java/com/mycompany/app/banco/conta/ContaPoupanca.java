@@ -1,8 +1,8 @@
-package com.mycompany.app.banco;
+package com.mycompany.app.banco.conta;
 
-import org.omg.CORBA.TRANSACTION_MODE;
+import com.mycompany.app.banco.conta.transacao.TipoTransacao;
+import com.mycompany.app.banco.conta.transacao.Transacao;
 
-import java.util.Date;
 import java.util.Objects;
 
 public class ContaPoupanca implements Conta {

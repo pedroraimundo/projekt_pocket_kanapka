@@ -1,4 +1,4 @@
-package com.mycompany.app.banco;
+package com.mycompany.app.banco.conta.transacao;
 
 import java.util.Date;
 import java.util.Objects;
