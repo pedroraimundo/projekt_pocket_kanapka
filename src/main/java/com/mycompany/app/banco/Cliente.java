@@ -8,6 +8,8 @@ public class Cliente
     public final String cpf;
     public final Conta conta;
 
+    String classVar;
+
     public Cliente(String nome, String cpf, TipoConta tipoConta)
     {
         this(nome, cpf, tipoConta == TipoConta.Corrente ? new ContaCorrente() : new ContaPoupanca());
@@ -18,6 +20,8 @@ public class Cliente
         this.nome = nome;
         this.cpf = cpf;
         this.conta = conta;
+
+        String localVar;
     }
 
     public Cliente withNome(String nome)
@@ -35,6 +39,16 @@ public class Cliente
         return new Cliente(nome, cpf, conta);
     }
 
+    public Cliente deposita(double valor)
+    {
+        return new Cliente(nome, cpf, conta.deposita(valor));
+    }
+
+    public Cliente saca(double valor)
+    {
+        return new Cliente(nome, cpf, conta.saca(valor));
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -48,5 +62,15 @@ public class Cliente
     @Override
     public int hashCode() {
         return Objects.hash(nome, cpf, conta);
+    }
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "nome='" + nome + '\'' +
+                ", cpf='" + cpf + '\'' +
+                ", conta=" + conta +
+                ", classVar='" + classVar + '\'' +
+                '}';
     }
 }

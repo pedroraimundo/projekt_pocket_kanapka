@@ -1,5 +1,7 @@
 package com.mycompany.app.banco;
 
+import java.util.Arrays;
+import java.util.Date;
 import java.util.Objects;
 
 public class ContaCorrente implements Conta {
@@ -7,59 +9,103 @@ public class ContaCorrente implements Conta {
     public final double saldoAtual;
     public final double limite;
     public final int numeroConta;
+    public  Transacao[] transacoes;
+    private int counter;
+    private int trxsize;
+    private static final int TRXBUFFERSIZE = 100;
 
-    public ContaCorrente(double saldoAtual, double limite, int numeroConta)
+    private ContaCorrente(double saldoAtual, double limite, int numeroConta, Transacao[] transacoes, int counter, int trxsize)
     {
         this.saldoAtual = saldoAtual;
         this.limite = limite;
         this.numeroConta = numeroConta;
+        this.transacoes = transacoes;
+        this.counter = counter;
+        this.trxsize = trxsize;
     }
 
     public ContaCorrente()
     {
-        saldoAtual = 0.0;
-        limite = 50;
-        numeroConta = 0;
+        this(5.0, 50, 0, new Transacao[TRXBUFFERSIZE], 0 , 100);
     }
 
     public ContaCorrente withSaldoAtual(double saldoAtual)
     {
-        return new ContaCorrente(saldoAtual, limite, numeroConta);
+        return new ContaCorrente(saldoAtual, limite, numeroConta, transacoes, counter, trxsize);
     }
 
     public ContaCorrente withLimite(double limite)
     {
-        return new ContaCorrente(saldoAtual, limite, numeroConta);
+        return new ContaCorrente(saldoAtual, limite, numeroConta, transacoes, counter, trxsize);
     }
 
     public ContaCorrente withNumeroConta(int numeroConta)
     {
-        return new ContaCorrente(saldoAtual, limite, numeroConta);
+        return new ContaCorrente(saldoAtual, limite, numeroConta, transacoes, counter, trxsize);
+    }
+
+    public ContaCorrente withTransacoes(Transacao[] transacoes)
+    {
+        return new ContaCorrente(saldoAtual, limite, numeroConta, transacoes, counter, trxsize);
+    }
+
+    public ContaCorrente withCounter(int counter)
+    {
+        return new ContaCorrente(saldoAtual, limite, numeroConta, transacoes, counter, trxsize);
+    }
+
+    public ContaCorrente withTrxsize(int trxsize)
+    {
+        return new ContaCorrente(saldoAtual, limite, numeroConta, transacoes, counter, trxsize);
+    }
+
+    public Conta addTransacao(Transacao trx)
+    {
+        if(counter < trxsize)
+        {
+            transacoes[counter] = trx;
+            counter++;
+            return this.withTransacoes(transacoes).withCounter(counter + 1);
+        }
+        else
+        {
+            trxsize += TRXBUFFERSIZE;
+            Transacao[] transacoesPlus = new Transacao[trxsize];
+            for (int i = 0; i > transacoes.length; i++)
+            {
+                transacoesPlus[i] = transacoes[i];
+            }
+            transacoes = transacoesPlus;
+            transacoes[counter] = trx;
+            return this.withTransacoes(transacoes).withCounter(counter + 1).withTrxsize(trxsize);
+        }
     }
 
     @Override
-    public ContaCorrente saca(double valor)
+    public Conta saca(double valor)
     {
         if (this.saldoAtual < valor)
         {
-            return this;
+            return this.addTransacao(new Transacao(valor, TipoTransacao.Saque));
         }
         else
         {
-            return new ContaCorrente(saldoAtual - valor, limite, numeroConta);
+            return this.withSaldoAtual(saldoAtual - valor)
+                    .addTransacao(new Transacao(valor, TipoTransacao.Saque));
         }
     }
 
     @Override
-    public ContaCorrente deposita(double valor)
+    public Conta deposita(double valor)
     {
         if ((valor < 0) || (valor == 0))
         {
-            return this;
+            return this.addTransacao(new Transacao(valor, TipoTransacao.Deposito));
         }
         else
         {
-            return new ContaCorrente(saldoAtual + valor, limite, numeroConta);
+            return this.withSaldoAtual(saldoAtual + valor)
+                    .addTransacao(new Transacao(valor, TipoTransacao.Deposito));
         }
     }
 
@@ -87,5 +133,17 @@ public class ContaCorrente implements Conta {
     public int hashCode() {
 
         return Objects.hash(saldoAtual, limite, numeroConta);
+    }
+
+    @Override
+    public String toString() {
+        return "ContaCorrente{" +
+                "saldoAtual=" + saldoAtual +
+                ", limite=" + limite +
+                ", numeroConta=" + numeroConta +
+                ", transacoes=" + Arrays.toString(transacoes) +
+                ", counter=" + counter +
+                ", trxsize=" + trxsize +
+                '}';
     }
 }

@@ -16,6 +16,11 @@ public class Transacao
         this.trxDate = trxDate;
     }
 
+    public Transacao(double valor, TipoTransacao opTransacao)
+    {
+        this(valor, opTransacao, new Date());
+    }
+
     public Transacao withValor(double valor)
     {
         return new Transacao(valor, opTransacao, trxDate);

@@ -29,16 +29,48 @@ public class Relatorios
         System.out.println("TIPO CONTA:\n");
         System.out.println(cliente.conta.tipoConta());
 
+        informacoesConta(cliente.conta);
+    }
+
+    public void informacoesConta(Conta conta)
+    {
         System.out.println("NUMERO CONTA:\n");
-        if(cliente.conta.tipoConta() == TipoConta.Corrente)
+        if(conta.tipoConta() == TipoConta.Corrente)
         {
-            ContaCorrente cc = (ContaCorrente) cliente.conta;
+            ContaCorrente cc = (ContaCorrente) conta;
             System.out.println(cc.numeroConta);
+
+            System.out.println("LIMITE:\n");
+            System.out.println(cc.limite);
+
+            System.out.println("SALDO ATUAL:\n");
+            System.out.println(cc.saldoAtual);
+
+            historico(cc.transacoes);
         }
         else
         {
-            ContaPoupanca cp = (ContaPoupanca) cliente.conta;
+            ContaPoupanca cp = (ContaPoupanca) conta;
             System.out.println(cp.numeroConta);
+
+            System.out.println("LIMITE:\n");
+            System.out.println(cp.limite);
+
+            System.out.println("SALDO ATUAL:\n");
+            System.out.println(cp.saldoAtual);
+
+            historico(cp.transacoes);
+        }
+    }
+
+    public void historico(Transacao[] transacoes)
+    {
+        for(Transacao trx : transacoes)
+        {
+            if (trx != null)
+            {
+                System.out.println(trx);
+            }
         }
     }
 }
