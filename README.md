@@ -2,4 +2,4 @@
 Training sessions
 
 
-THIS BUT A TRAINING KANAPKA. JOIN THE POCKET KANAPKA PARTY!!!!
+Java practice. Please don't look at this :)
